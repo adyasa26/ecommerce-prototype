@@ -5,7 +5,7 @@ let JwtStrategy = require('passport-jwt').Strategy;
 let ExtractJwt = require('passport-jwt').ExtractJwt;
 let jwt = require('jsonwebtoken')
 let bcrypt = require('bcrypt-nodejs')
-
+ 
 // configuration passport
 passport.serializeUser((user, done)=>{
     done(null, user.id);

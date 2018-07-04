@@ -39,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(session({
   secret:'mysupersecreat', 
   resave: false, 
+  useNewUrlParser : true,
   saveUninitialized:false, 
   cookie:{maxAge: 180 * 60 * 1000},
   store: new mongoStore({mongooseConnection : mongoose.connection})

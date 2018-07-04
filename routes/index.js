@@ -4,7 +4,8 @@ let passport = require('passport');
 let jwt = require('jsonwebtoken');
 let Product = require('../models/product');
 let Cart = require('../models/cart');
-var flash = require('connect-flash');
+let flash = require('connect-flash');
+let Order = require('../models/order');
 
 /* GET home page. */
 
@@ -91,10 +92,28 @@ router.post('/checkout',gettokenname,(req, res, next)=>{
       req.flash('error', err.message);
       return res.redirect('/checkout')
     }
-    req.flash('success','NTAPS ! Succesfully bought product, shikat lagi ?');
-    req.session.cart = null;
-    res.redirect('/');
-  });
+    // let order = new Order({
+    //   user: req.user,
+    //   cart: cart,
+    //   address : req.body.address,
+    //   name: req.body.name,
+    //   paymentId: charge.id
+    // });
+    let order = new Order();
+    order.user = req.user;
+    order.cart = cart;
+    // order.address = req.body.address;
+    order.nama = data;
+    order.paymentId = charge.id
+    console.log(order);
+    order.markModified('user')
+    order.markModified('cart')
+    order.save((err, result)=>{
+      req.flash('success','NTAPS ! Succesfully bought product, shikat lagi ?');
+      req.session.cart = null;
+      res.redirect('/');
+    })
+  })
 })
 
 
