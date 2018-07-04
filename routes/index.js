@@ -4,6 +4,7 @@ let passport = require('passport');
 let jwt = require('jsonwebtoken');
 let Product = require('../models/product');
 let Cart = require('../models/cart');
+var flash = require('connect-flash');
 
 /* GET home page. */
 
@@ -90,7 +91,7 @@ router.post('/checkout',gettokenname,(req, res, next)=>{
       req.flash('error', err.message);
       return res.redirect('/checkout')
     }
-    req.flash('success','Succesfully bought product');
+    req.flash('success','NTAPS ! Succesfully bought product, shikat lagi ?');
     req.session.cart = null;
     res.redirect('/');
   });
